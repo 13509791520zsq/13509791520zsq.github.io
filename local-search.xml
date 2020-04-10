@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>axios笔记</title>
+    <link href="/2020/04/10/axios%E7%AC%94%E8%AE%B0/"/>
+    <url>/2020/04/10/axios%E7%AC%94%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h1><p><strong>Axios 是一个基于 <a href="https://link.jianshu.com/?t=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FJavaScript%2FReference%2FGlobal_Objects%2FPromise" target="_blank" rel="noopener">Promise</a> 的 HTTP 库，可以用在浏览器和 node.js 中</strong></p><p>##1. 特性</p><ul><li>在浏览器中创建 <a href="https://link.jianshu.com/?t=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FAPI%2FXMLHttpRequest" target="_blank" rel="noopener">XMLHttpRequests</a></li><li>在 node.js 则创建 <a href="https://link.jianshu.com/?t=http%3A%2F%2Fnodejs.org%2Fapi%2Fhttp.html" target="_blank" rel="noopener">http</a> 请求</li><li>支持 <a href="https://link.jianshu.com/?t=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FJavaScript%2FReference%2FGlobal_Objects%2FPromise" target="_blank" rel="noopener">Promise</a> API</li><li>支持拦截请求和响应</li><li>转换请求和响应数据</li><li>取消请求</li><li>自动转换 JSON 数据</li><li>客户端支持防御 <a href="https://link.jianshu.com/?t=http%3A%2F%2Fen.wikipedia.org%2Fwiki%2FCross-site_request_forgery" target="_blank" rel="noopener">XSRF</a></li></ul><h2 id="2-浏览器支持"><a href="#2-浏览器支持" class="headerlink" title="2. 浏览器支持"></a>2. 浏览器支持</h2><p>  支持Chrome，火狐，Edge，IE8+等</p><h2 id="3-安装"><a href="#3-安装" class="headerlink" title="3. 安装"></a>3. 安装</h2><ul><li><p>npm 安装</p><pre><code>$ npm install axios</code></pre></li><li><p>使用bower：</p><pre><code>$ bower install axios</code></pre></li><li><p>直接使用cdn：</p><pre><code>&lt;script src=&quot;https://unpkg.com/axios/dist/axios.min.js&quot;&gt;&lt;/script&gt;</code></pre></li></ul><h2 id="4-使用"><a href="#4-使用" class="headerlink" title="4. 使用"></a>4. 使用</h2><ul><li><p>get请求</p><pre><code>// 为给定 ID 的 user 创建请求axios.get(&#39;/user?ID=12345&#39;)  .then(function (response) {    console.log(response);  })  .catch(function (error) {    console.log(error);  });// GET 参数可以放到params里（推荐）axios.get(&#39;/user&#39;, {    params: {      ID: 12345    }  })  .then(function (response) {    console.log(response);  })  .catch(function (error) {    console.log(error);  });// 还可以使用ECMAScript 2017里的async/await，添加 `async` keyword to your outer function/method.async function getUser() {  try {    const response = await axios.get(&#39;/user?ID=12345&#39;);    console.log(response);  } catch (error) {    console.error(error);  }}</code></pre></li><li><p>执行post请求</p><pre><code>axios.post(&#39;/user&#39;, {    firstName: &#39;Fred&#39;,    lastName: &#39;Flintstone&#39;  })  .then(function (response) {    console.log(response);  })  .catch(function (error) {    console.log(error);  });</code></pre></li></ul><h2 id="5-拦截器"><a href="#5-拦截器" class="headerlink" title="5. 拦截器"></a>5. 拦截器</h2><p>可以自定义拦截器，在在请求或响应被 <code>then</code> 或 <code>catch</code> 处理前拦截它们。</p><pre><code>// 添加请求拦截器axios.interceptors.request.use(function (config) {    // 在发送请求之前做些什么    return config;  }, function (error) {    // 对请求错误做些什么    return Promise.reject(error);  });// 添加响应拦截器axios.interceptors.response.use(function (response) {    // 对响应数据做点什么    return response;  }, function (error) {    // 对响应错误做点什么    return Promise.reject(error);  });</code></pre><p>如果你想在稍后移除拦截器，可以这样：</p><pre><code class="js">var myInterceptor = axios.interceptors.request.use(function () {/*...*/});axios.interceptors.request.eject(myInterceptor);</code></pre><p>可以为自定义 axios 实例添加拦截器</p><pre><code class="js">var instance = axios.create();instance.interceptors.request.use(function () {/*...*/});</code></pre><h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><pre><code class="js">axios.get(&quot;/user/12345&quot;)  .catch(function (error) {    if (error.response) {      // 请求已发出，但服务器响应的状态码不在 2xx 范围内      console.log(error.response.data);      console.log(error.response.status);      console.log(error.response.headers);    } else {      // Something happened in setting up the request that triggered an Error      console.log(&quot;Error&quot;, error.message);    }    console.log(error.config);  });</code></pre><p>可以使用 <code>validateStatus</code> 配置选项定义一个自定义 HTTP 状态码的错误范围。</p><pre><code class="js">axios.get(&quot;/user/12345&quot;, {  validateStatus: function (status) {    return status &lt; 500; // 状态码在大于或等于500时才会 reject  }})</code></pre><h2 id="取消请求"><a href="#取消请求" class="headerlink" title="取消请求"></a>取消请求</h2><p>使用 <em>cancel token</em> 取消请求</p><blockquote><p>Axios 的 cancel token API 基于<a href="https://link.jianshu.com/?t=https%3A%2F%2Fgithub.com%2Ftc39%2Fproposal-cancelable-promises" target="_blank" rel="noopener">cancelable promises proposal</a></p></blockquote><p>可以使用 <code>CancelToken.source</code> 工厂方法创建 cancel token，像这样：</p><pre><code class="js">const CancelToken = axios.CancelToken;const source = CancelToken.source();axios.get(&#39;/user/12345&#39;, {  cancelToken: source.token}).catch(function(thrown) {  if (axios.isCancel(thrown)) {    console.log(&#39;Request canceled&#39;, thrown.message);  } else {    // handle error  }});axios.post(&#39;/user/12345&#39;, {  name: &#39;new name&#39;}, {  cancelToken: source.token})// cancel the request (the message parameter is optional)source.cancel(&#39;Operation canceled by the user.&#39;);</code></pre><p>还可以通过传递一个 executor 函数到 <code>CancelToken</code> 的构造函数来创建 cancel token：</p><pre><code class="js">var CancelToken = axios.CancelToken;var cancel;axios.get(&quot;/user/12345&quot;, {  cancelToken: new CancelToken(function executor(c) {    // executor 函数接收一个 cancel 函数作为参数    cancel = c;  })});// 取消请求cancel();</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>axios</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>vue技术栈</title>
+    <link href="/2020/04/10/vue%E6%8A%80%E6%9C%AF%E6%A0%88/"/>
+    <url>/2020/04/10/vue%E6%8A%80%E6%9C%AF%E6%A0%88/</url>
+    
+    <content type="html"><![CDATA[<p>##vue技术栈</p><ol><li><p>vue</p></li><li><p>vue-router</p></li><li><p>ui 库</p><ul><li><p>element-ui /bootstrap-vue /ant-design-vue 等</p></li><li><p>mint-ui(移动端)</p></li></ul></li><li><p>vuex</p></li><li><p>lodash(util库) /ramda /remeda</p></li><li><p>axios</p></li><li><p>axios-mock-adapter</p></li><li><p>webpack</p></li><li><p>yoso</p></li><li><p>husky</p></li><li><p>jest</p></li><li><p>puppeteer</p></li><li></li></ol><ul><li>mock</li><li>webpack</li><li>工程组件模板 - yoso</li><li>husky</li></ul>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>vue入门</title>
+    <link href="/2020/04/09/vue%E5%85%A5%E9%97%A8/"/>
+    <url>/2020/04/09/vue%E5%85%A5%E9%97%A8/</url>
+    
+    <content type="html"><![CDATA[<h1 id="vue入门"><a href="#vue入门" class="headerlink" title="vue入门"></a>vue入门</h1><h2 id="Vue-js安装"><a href="#Vue-js安装" class="headerlink" title="Vue.js安装"></a>Vue.js安装</h2><ol><li>独立版本</li></ol><p>2，使用CDN方法</p><p>以下推荐国外比较稳定的两个CDN，国内还没发现哪一家比较好，目前还是建议下载到本地。</p><p>静态文件CDN（国内）：<code>https : //cdn.staticfile.org/vue/2.2.2/vue.min.js</code></p><p>unpkg：<code>https : //unpkg.com/vue/dist/vue.js，</code>保持和npm发布的最新版本一致。</p><p>cdnjs：<code>https : //cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js</code><br>3. NPM方法</p><p>由于npm安装速度慢，本教程使用了淘宝的补充及其命令cnpm，安装使用介绍参照：使用淘宝NPM。</p><p>npm版本需要大于3.0，如果低于此版本需要升级它：</p><pre><code>＃查看版本$ npm - v 2.3 。0＃升级npm cnpm安装npm - g＃升级或安装cnpm npm安装cnpm - g</code></pre><p>在用Vue.js构建大型应用时推荐使用NPM安装：</p><pre><code>＃最新稳定版$ cnpm install vue</code></pre><hr><h2 id="命令行工具"><a href="#命令行工具" class="headerlink" title="命令行工具"></a>命令行工具</h2><p>Vue.js 提供一个官方命令行工具，可用于快速搭建大型单页应用。</p><pre><code># 全局安装 vue-cli$ cnpm install --global vue-cli# 创建一个基于 webpack 模板的新项目$ vue init webpack my-project# 这里需要进行一些配置，默认回车即可This will install Vue 2.x version of the template.For Vue 1.x use: vue init webpack#1.0 my-project? Project name my-project? Project description A Vue.js project? Author runoob &lt;test@runoob.com&gt;? Vue build standalone? Use ESLint to lint your code? Yes? Pick an ESLint preset Standard? Setup unit tests with Karma + Mocha? Yes? Setup e2e tests with Nightwatch? Yes   vue-cli · Generated &quot;my-project&quot;.   To get started:     cd my-project     npm install     npm run dev   Documentation can be found at https://vuejs-templates.github.io/webpack</code></pre><p>进入项目，安装并运行：</p><pre><code>$ cd my-project$ cnpm install$ cnpm run dev DONE  Compiled successfully in 4388ms&gt; Listening at http://localhost:8080</code></pre><h2 id="Vue-js-起步"><a href="#Vue-js-起步" class="headerlink" title="Vue.js 起步"></a>Vue.js 起步</h2><p>每个 Vue 应用都需要通过实例化 Vue 来实现。</p><p>语法格式如下：</p><pre><code>var vm = new Vue({  // 选项})</code></pre><p>接下来让我们通过实例来看下 Vue 构造器中需要哪些内容：</p><p>实例</p><pre><code>&lt;div id=&quot;vue_det&quot;&gt;    &lt;h1&gt;site : {{site}}&lt;/h1&gt;    &lt;h1&gt;url : {{url}}&lt;/h1&gt;    &lt;h1&gt;{{details()}}&lt;/h1&gt;&lt;/div&gt;&lt;script type=&quot;text/javascript&quot;&gt;    var vm = new Vue({        el: &#39;#vue_det&#39;,        data: {            site: &quot;菜鸟教程&quot;,            url: &quot;www.runoob.com&quot;,            alexa: &quot;10000&quot;        },        methods: {            details: function() {                return  this.site + &quot; - 学的不仅是技术，更是梦想！&quot;;            }        }    })&lt;/script&gt;</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>vue</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2020/04/09/hello-world/"/>
+    <url>/2020/04/09/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>vue.router</title>
+    <link href="/2020/03/20/vue.router/"/>
+    <url>/2020/03/20/vue.router/</url>
+    
+    <content type="html"><![CDATA[<h1 id="vue-component"><a href="#vue-component" class="headerlink" title="vue.component"></a>vue.component</h1><h2 id="Vue-js-组件"><a href="#Vue-js-组件" class="headerlink" title="Vue.js 组件"></a>Vue.js 组件</h2><p>组件（Component）是 Vue.js 最强大的功能之一。</p><p>组件可以扩展 HTML 元素，封装可重用的代码。</p><p>组件系统让我们可以用独立可复用的小组件来构建大型应用，几乎任意类型的应用的界面都可以抽象为一个组件树：</p><p>注册一个全局组件语法格式如下：</p><p><code>Vue.component(tagName, options)</code></p><p>tagName 为组件名，options 为配置选项。注册后，我们可以使用以下方式来调用组件：</p><p><code>&lt;tagName&gt;&lt;/tagName&gt;</code></p><h3 id="全局组件"><a href="#全局组件" class="headerlink" title="全局组件"></a>全局组件</h3><p>所有实例都能用全局组件。</p><pre><code>全局组件实例注册一个简单的全局组件 runoob，并使用它：&lt;div id=&quot;app&quot;&gt;    &lt;runoob&gt;&lt;/runoob&gt;&lt;/div&gt;&lt;script&gt;// 注册Vue.component(&#39;runoob&#39;, {  template: &#39;&lt;h1&gt;自定义组件!&lt;/h1&gt;&#39;})// 创建根实例new Vue({  el: &#39;#app&#39;})&lt;/script&gt;</code></pre><h3 id="局部组件"><a href="#局部组件" class="headerlink" title="局部组件"></a>局部组件</h3><p>我们也可以在实例选项中注册局部组件，这样组件只能在这个实例中使用：</p><pre><code>局部组件实例注册一个简单的局部组件 runoob，并使用它：&lt;div id=&quot;app&quot;&gt;    &lt;runoob&gt;&lt;/runoob&gt;&lt;/div&gt;&lt;script&gt;var Child = {  template: &#39;&lt;h1&gt;自定义组件!&lt;/h1&gt;&#39;}// 创建根实例new Vue({  el: &#39;#app&#39;,  components: {    // &lt;runoob&gt; 将只在父模板可用    &#39;runoob&#39;: Child  }})&lt;/script&gt;</code></pre><h3 id="Prop"><a href="#Prop" class="headerlink" title="Prop"></a>Prop</h3><p>prop 是子组件用来接受父组件传递过来的数据的一个自定义属性。</p><p>父组件的数据需要通过 props 把数据传给子组件，子组件需要显式地用 props 选项声明 “prop”：</p><pre><code>Prop 实例&lt;div id=&quot;app&quot;&gt;    &lt;child message=&quot;hello!&quot;&gt;&lt;/child&gt;&lt;/div&gt;&lt;script&gt;// 注册Vue.component(&#39;child&#39;, {  // 声明 props  props: [&#39;message&#39;],  // 同样也可以在 vm 实例中像 &quot;this.message&quot; 这样使用  template: &#39;&lt;span&gt;{{ message }}&lt;/span&gt;&#39;})// 创建根实例new Vue({  el: &#39;#app&#39;})&lt;/script&gt;</code></pre><h3 id="动态-Prop"><a href="#动态-Prop" class="headerlink" title="动态 Prop"></a>动态 Prop</h3><p>类似于用 v-bind 绑定 HTML 特性到一个表达式，也可以用 v-bind 动态绑定 props 的值到父组件的数据中。每当父组件的数据变化时，该变化也会传导给子组件：</p><pre><code>Prop 实例&lt;div id=&quot;app&quot;&gt;    &lt;div&gt;      &lt;input v-model=&quot;parentMsg&quot;&gt;      &lt;br&gt;      &lt;child v-bind:message=&quot;parentMsg&quot;&gt;&lt;/child&gt;    &lt;/div&gt;&lt;/div&gt;&lt;script&gt;// 注册Vue.component(&#39;child&#39;, {  // 声明 props  props: [&#39;message&#39;],  // 同样也可以在 vm 实例中像 &quot;this.message&quot; 这样使用  template: &#39;&lt;span&gt;{{ message }}&lt;/span&gt;&#39;})// 创建根实例new Vue({  el: &#39;#app&#39;,  data: {    parentMsg: &#39;父组件内容&#39;  }})&lt;/script&gt;</code></pre><p>以下实例中使用 v-bind 指令将 todo 传到每一个重复的组件中：</p><pre><code>Prop 实例&lt;div id=&quot;app&quot;&gt;    &lt;ol&gt;    &lt;todo-item v-for=&quot;item in sites&quot; v-bind:todo=&quot;item&quot;&gt;&lt;/todo-item&gt;      &lt;/ol&gt;&lt;/div&gt;&lt;script&gt;Vue.component(&#39;todo-item&#39;, {  props: [&#39;todo&#39;],  template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39;})new Vue({  el: &#39;#app&#39;,  data: {    sites: [      { text: &#39;Runoob&#39; },      { text: &#39;Google&#39; },      { text: &#39;Taobao&#39; }    ]  }})&lt;/script&gt;</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>vue</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>express开放静态资源文件</title>
+    <link href="/2020/02/29/nginx%E9%9A%8F%E7%AC%94/"/>
+    <url>/2020/02/29/nginx%E9%9A%8F%E7%AC%94/</url>
+    
+    <content type="html"><![CDATA[<h1 id="nginx安装："><a href="#nginx安装：" class="headerlink" title="nginx安装："></a>nginx安装：</h1><ul><li>下载：官网<a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a>Stable Vision(稳定版本)<ul><li>安装：Windows下解压即可<br>#nginx使用的几个简单命令：</li><li>启动：windows下直接点击nginx.exe即可启动</li><li>关闭：</li></ul></li></ul><ul><li>软关闭：当前文件夹下命令行执行<br><code>nginx -s quit</code></li><li>硬关闭：当前文件夹下命令行执行<br><code>nginx -s stop</code><ul><li>重新加载配置文件：<code>nginx -s reload</code></li><li>重新启动nginx：<code>nginx -s reopen</code></li></ul></li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>nginx</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>express中间件学习</title>
+    <link href="/2020/02/29/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AD%A6%E4%B9%A0/"/>
+    <url>/2020/02/29/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AD%A6%E4%B9%A0/</url>
+    
+    <content type="html"><![CDATA[<p>##中间件格式：</p><pre><code>//全局app.use((req,res,next)=&gt;{  next()//放行，执行下边的路径访问})//带路径，只过滤这个路径的访问app.use(&#39;/login&#39;,(req,res,next)=&gt;{  next()})</code></pre><p>##中间件应用：</p><ul><li>404处理：<pre><code>app.use((req,res,next)=&gt;{res.status(404).send(&#39;404 not found&#39;)})</code></pre></li><li>500处理;<pre><code>app.use((err,req,res,next)=&gt;{res.status(500).send(err.message)})//触发方法：1.在上边的路径请求中判断并抛出error：throw new Error(&#39;error message&#39;)2。异步处理无法触发要使用next（）：在异步处理中将err信息放在next（）中即可在发生错误时触发500中间件3.使用trycatch捕获异常**trycatch可以捕获同步函数错误异步函数错误但是不能捕获其他错误，如promise对象错误，回调函数错误app.get(&#39;/&#39;,async(req,res,next)=&gt;{try{await user.find({name:&#39;zhangsan&#39;})}  catch(ex){next(ex)}})</code></pre></li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>express</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>express cookie使用</title>
+    <link href="/2020/02/29/express%20cookie%E4%BD%BF%E7%94%A8/"/>
+    <url>/2020/02/29/express%20cookie%E4%BD%BF%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<p>##1.安装</p><pre><code class="js">npm install cookie-parser --save</code></pre><p>##2.引入</p><pre><code class="js">const cookieParser=require(&quot;cookie-parser&quot;)</code></pre><p>##3.设置中间件</p><pre><code class="js">app.use(cookieParser())</code></pre><p>##4.设置cookie</p><pre><code class="js">res.cookie(&quot;name&quot;,&#39;zhangsan&#39;,{maxAge: 900000, httpOnly: true});参数一：cookie名字参数二：cookie值参数三： {maxage：最大存活时间，httponly：true通过程序（JS 脚本、applet 等）将无法读取到COOKIE 信息，防止 XSS 攻击的产生,domindomain: &quot;ccc.com&quot;设置域名，满足顶级域名的访问都能共享cookie }</code></pre><p>##5.获取cookie</p><pre><code class="js">req.cookie.name</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>express cookie</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>vue.js安装</title>
+    <link href="/2020/02/29/vue.js/"/>
+    <url>/2020/02/29/vue.js/</url>
+    
+    <content type="html"><![CDATA[<h1 id="vue-js安装"><a href="#vue-js安装" class="headerlink" title="vue.js安装"></a>vue.js安装</h1><ol><li><p>独立版本</p></li><li><p>使用cdn方法</p><p>以下推荐国外比较稳定的两个CDN，国内还没发现哪一家比较好，目前还是建议下载到本地。</p><ul><li>静态文件CDN（国内）：<code>https : //cdn.staticfile.org/vue/2.2.2/vue.min.js</code></li><li>unpkg：<code>https : //unpkg.com/vue/dist/vue.js，</code>保持和npm发布的最新版本一致。</li><li>cdnjs：<code>https : //cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js</code></li></ul></li><li><p>npm安装</p><p>由于npm安装速度慢，本教程使用了淘宝的补充及其命令cnpm，安装使用介绍参照：使用淘宝NPM。npm版本需要大于3.0，如果低于此版本需要升级它：</p><pre><code>＃查看版本$ npm - v 2.3 。0＃升级npm cnpm安装npm - g＃升级或安装cnpm npm安装cnpm - g</code></pre><p>在用Vue.js构建大型应用时推荐使用NPM安装：</p><pre><code>＃最新稳定版$ cnpm install vue</code></pre></li></ol>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>vue</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>express开放静态资源文件</title>
+    <link href="/2020/02/29/express%E5%BC%80%E6%94%BE%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6/"/>
+    <url>/2020/02/29/express%E5%BC%80%E6%94%BE%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6/</url>
+    
+    <content type="html"><![CDATA[<p>创建public文件夹，将静态资源全部放入<br>在server.js中</p><pre><code class="js">app.use(&quot;/static/&quot;,express.static(path.join(__dirname, &#39;static&#39;)))第一个参数是访问时要加的路径，第二个参数是要开放的文件夹路径  path是一个核心模块  __dirname是当前文件所在目录的绝对目录join是拼接目录的方法</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>express</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>学习markdown的语法</title>
+    <link href="/2020/02/29/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <url>/2020/02/29/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="markdown语法"><a href="#markdown语法" class="headerlink" title="markdown语法"></a>markdown语法</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>在想要设置为标题的文字前面加#来表示<br>一个#是一级标题，二个#是二级标题，以此类推。支持六级标题。</p><p>注：标准语法一般在#后跟个空格再写文字，貌似简书不加空格也行。</p><h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><h3 id="加粗"><a href="#加粗" class="headerlink" title="加粗"></a>加粗</h3><p>要加粗的文字左右分别用两个*号包起来</p><h3 id="斜体"><a href="#斜体" class="headerlink" title="斜体"></a>斜体</h3><p>要倾斜的文字左右分别用一个*号包起来</p><h3 id="斜体加粗"><a href="#斜体加粗" class="headerlink" title="斜体加粗"></a>斜体加粗</h3><p>要倾斜和加粗的文字左右分别用三个*号包起来</p><h3 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h3><p>要加删除线的文字左右分别用两个~~号包起来</p><a id="more"></a><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>在引用的文字前加&gt;即可。引用也可以嵌套，如加两个&gt;&gt;三个&gt;&gt;&gt;<br>n个…</p><p>示例：</p><blockquote><p>这是引用的内容</p><blockquote><p>这是引用的内容</p><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><p>这是引用的内容</p></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote><h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><p>三个或者三个以上的 - 或者 * 都可以。</p><hr><hr><h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p>语法：</p><p><strong>![图片alt](图片地址 ‘’图片title’’)</strong></p><p><strong>图片alt就是显示在图片下面的文字，相当于对图片内容的解释。</strong><br><strong>图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加</strong></p><h2 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h2><p>**语法：</p><p>**<a href="超链接地址" title="超链接title">超链接名</a><br>**title可加可不加</p><p>注：Markdown本身语法不支持链接在新页面中打开，貌似简书做了处理，<br>是可以的。别的平台可能就不行了，如果想要在新页面中打开的话可以<br>用html语言的a标签代替。</p><h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><p>语法：<br>无序列表用 - + * 任何一种都可以</p><ul><li>列表内容</li></ul><ul><li>列表内容</li></ul><ul><li>列表内容</li></ul><p><strong>注意：- + * 跟内容之间都要有一个空格</strong></p><h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><p>语法：<br>数字加点</p><ol><li>列表内容</li><li>列表内容</li><li>列表内容</li></ol><p><strong>注意：序号跟内容之间要有空格</strong></p><h3 id="列表嵌套"><a href="#列表嵌套" class="headerlink" title="列表嵌套"></a>列表嵌套</h3><p>上一级和下一级之间敲三个空格即可</p><h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><p>语法：</p><table><thead><tr><th>表头</th><th align="center">表头</th><th align="right">表头</th></tr></thead><tbody><tr><td>内容</td><td align="center">内容</td><td align="right">内容</td></tr><tr><td>内容</td><td align="center">内容</td><td align="right">内容</td></tr></tbody></table><p>第二行分割表头和内容。</p><ul><li>有一个就行，为了对齐，多加了几个<br>文字默认居左</li><li>两边加：表示文字居中</li><li>右边加：表示文字居右<br>注：原生的语法两边都要用 | 包起来。此处省略</li></ul><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>语法：<br>单行代码：代码之间分别用一个反引号(英文输入法~键不按shift)包起来</p><pre><code>`代码内容`</code></pre><p>代码块：代码之间分别用三个反引号包起来，且两边的反引号单独占一行</p><p>(<code>)  代码...  代码...  代码...(</code>)</p><p>注：为了防止转译，前后三个反引号处加了小括号，实际是没有的。<br>这里只是用来演示，实际中去掉两边小括号即可。</p><h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><pre><code class="flow">st=&gt;start: 开始op=&gt;operation: My Operationcond=&gt;condition: Yes or No?e=&gt;endst-&gt;op-&gt;condcond(yes)-&gt;econd(no)-&gt;op&amp;```</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>markdown语法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>git的安装</title>
+    <link href="/2019/10/22/git%E7%9A%84%E5%AE%89%E8%A3%85/"/>
+    <url>/2019/10/22/git%E7%9A%84%E5%AE%89%E8%A3%85/</url>
+    
+    <content type="html"><![CDATA[<p>###git安装教程</p><p>这里的git指的是本地的git.</p><p>让我们开始吧！</p><ol><li>打开git的下载地址<a href="https://www.git-scm.com/download/" target="_blank" rel="noopener">https://www.git-scm.com/download/</a></li></ol><a id="more"></a><pre><code>![百度git](git的安装/baidugit.png)</code></pre><ol start="2"><li><p>打开后点击download</p><p> <img src="git%E7%9A%84%E5%AE%89%E8%A3%85/download.png" srcset="/img/loading.gif" alt="点击download"></p></li><li><p>下载完成后双击运行</p><p> <img src="git%E7%9A%84%E5%AE%89%E8%A3%85/%E5%AE%89%E8%A3%85.png" srcset="/img/loading.gif" alt="双击运行"></p></li><li><p>接着看需要点</p><p> <img src="git%E7%9A%84%E5%AE%89%E8%A3%85/%E5%AE%89%E8%A3%851.png" srcset="/img/loading.gif" alt="配置"></p><p> <img src="git%E7%9A%84%E5%AE%89%E8%A3%85/%E9%80%89%E6%8B%A9%E9%BB%98%E8%AE%A4%E7%BC%96%E8%BE%91%E5%99%A8.png" srcset="/img/loading.gif" alt="选择默认编辑器"></p></li><li><p>之后跟着一直点next，就好了下载完成后</p><p> <img src="git%E7%9A%84%E5%AE%89%E8%A3%85/%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.png" srcset="/img/loading.gif" alt="安装成功"></p></li><li><p>接下来就请放心食用吧</p><p> <img src="git%E7%9A%84%E5%AE%89%E8%A3%85/%E6%94%BE%E5%BF%83%E9%A3%9F%E7%94%A8.png" srcset="/img/loading.gif" alt="放心食用"></p></li></ol>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>git</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Filter:过滤器</title>
+    <link href="/2019/10/19/filter/"/>
+    <url>/2019/10/19/filter/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Filter-过滤器"><a href="#Filter-过滤器" class="headerlink" title="Filter:过滤器"></a>Filter:过滤器</h1><h3 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h3><ul><li>web中的过滤器:当访问服务器的资源时，过滤器可以将请求拦截下来，完成一些特殊的功能。</li><li>过滤器的作用：<ul><li>一般用于完成通知的操作。如：登陆验证、统一编码处理、敏感字符过滤。。。</li></ul></li></ul><h3 id="快速入门："><a href="#快速入门：" class="headerlink" title="快速入门："></a>快速入门：</h3><ul><li>步骤：<ol><li>定义一个类，实现接口Filter<ol start="2"><li>复写方法</li><li>配置拦截路径<ol><li>web.xml配置</li><li>注解配置<br><code>@webFilter(&quot;/*&quot;)//访问所有资源时都会执行该过滤器</code></li></ol></li><li>放行代码：<br><code>filterChain.doFilter(servletRequest,servletResponse);</code></li></ol></li></ol></li></ul><h3 id="过滤器细节："><a href="#过滤器细节：" class="headerlink" title="过滤器细节："></a>过滤器细节：</h3><ul><li><p>web.xml配置</p><pre><code>      &lt;filter&gt;          &lt;filter-name&gt;demo1&lt;/filter-name&gt;          &lt;filter-class&gt;cn.qiqi.web.filter.Filterdemo1&lt;/filter-class&gt;      &lt;/filter&gt;      &lt;filter-mapping&gt;          &lt;filter-name&gt;demo1&lt;/filter-name&gt;          &lt;!-- 拦截路径--&gt;          &lt;url-pattern&gt;/-&lt;/url-pattern&gt;      &lt;/filter-mapping&gt;</code></pre></li><li><p>过滤器执行流程</p><ol><li>执行过滤器</li><li>执行放行后的资源</li><li>回来执行过滤器放行代码下边的代码</li></ol></li><li><p>过滤器生命周期方法</p><ol><li>init: 在服务器启动后，会创建Filter对象，然后调用init方法。只执行一次，用于加载资源。</li><li>doFilter: 每次请求被拦截资源时，会执行。执行多次。</li><li>destroy: 在服务器关闭后，Filter对象被销毁。如果服务器是正常关闭的，则执行一次destroy方法，只执行一次，用于释放资源。</li></ol></li><li><p>过滤器配置详解</p><ul><li>拦截路径配置：<ol><li>具体资源路径：<br> <code>/index.jsp</code></li><li>拦截目录；<br> <code>/user/*</code></li><li>后缀名拦截：<br> <code>*.jsp</code></li><li>拦截所有资源：<br> <code>/*</code></li></ol></li><li>拦截方式配置：资源被访问的方式<ul><li>注解配置：<ul><li>设置dispatcherTypes属性<ol><li>REQUEST : 默认值。浏览器直接请求资源</li><li>FORWARD : 转发访问资源</li><li>INCLUDE : 包含访问资源</li><li>ERROR : 错误跳转资源</li><li>ASYNC : 异步访问资源</li></ol></li><li>web.xml配置<ul><li>设置<dispatcher></dispatcher>标签即可</li></ul></li></ul></li></ul></li></ul></li><li><p>过滤器链（配置多个过滤器）</p><ul><li><p>执行顺序 ：如果有两个过滤器：1和2</p><ol><li>1</li><li>2</li><li>资源执行</li><li>2</li><li>1</li></ol></li><li><p>过滤器先后顺序问题：</p><ol><li>注解配置：按照类名的字符串比较规则比较，值小的先执行</li><li>web.xml配置: <filter-mapping>谁定义在上边，谁先执行</li></ol></li></ul></li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Filter</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>个人博客的搭建过程</title>
+    <link href="/2019/10/19/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/"/>
+    <url>/2019/10/19/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/</url>
+    
+    <content type="html"><![CDATA[<p>##先序</p><p>教程针对hexo框架搭建，有本人踩过的坑，我是在windows上做的，大家参考。</p><a id="more"></a><hr><p>##第一步 安装nodejs</p><p>1.安装地址<a href="http://www.nodejs.org" target="_blank" rel="noopener">http://www.nodejs.org</a></p><p>[图片]url</p><p>2.下载完成后再双击安装，安装过程就一直next就好了</p><p>3.安装成功后可以通过命令行验证</p><p>4.win+r 输入cmd打开命令行窗口输入node -v   npm -v</p><p>5.我们还需要淘宝的镜像源来下载，要不直接下载太慢</p><p>命令为： </p><p>npm install -g cnpm –registry=<a href="http://registry.npm.taobao.org" target="_blank" rel="noopener">http://registry.npm.taobao.org</a></p><p>下载完成后可以输入： cnpm 验证。</p><hr><p>##第二步 通过cnpm 来安装hexo博客框架</p><p>1.命令行敲入命令：cnpm install -g hexo-cli</p><p>2.装好后用 hexo -v 来查看版本</p><hr><p>##第三步 搭建博客</p><p>1.搭建博客要先建一个blog文件夹（什么地方都可以，自己建）</p><p>可以鼠标操作也可以mkdir blog</p><p>之后所有操作都在这个文件夹里进行，出错了搞不定可以把这个删了，重新来。</p><p>2.然后我们开始用hexo来搭框架</p><p>敲入命令 hexo init 等待一会<br>安装好后，可以在blog内看到生成的文件，就说明安装好了</p><p>然后敲入命令hexo s 启动我们的博客</p><p>然后就可以在浏览器里面访问了，输入localhost:4000就可以看到了</p><p>3.hexo会默认给哦我们生成一个hello world 的文章</p><p>要写文章的话可以使用命令hexo n “文章题目”来新建一个.md的文件</p><p>我们可以使用idea和其他的编辑器来编辑它，它采用的是markdown语言（一种简单的标记语言）<br>关于markdown语法可以在<a href="https://www.jianshu.com/p/335db5716248中查看，也可以自行百度" target="_blank" rel="noopener">https://www.jianshu.com/p/335db5716248中查看，也可以自行百度</a></p><p>编辑好后依次执行（记得回到blog目录下）</p><p>hexo clean</p><p>hexo g</p><p>hexo s</p><p>然后刷新浏览器，就可以看到我们新添加的文章了。</p><p>##第四步 上传到github</p><p>1.之前做的博客只能在自己的电脑上访问，我们现在需要把他布置到github上，让别人能够通过互联网来访问我们的博客。</p><p>做法如下：</p><p>我们先到自己的github上创建一个仓库</p><blockquote><p><strong>仓库名一定要是:你的用户名.github.io</strong></p></blockquote><p>2.创建好后，仓库还是空的</p><p>我们要在blog目录下安装一下git的部署插件</p><p>cnpm install –save hexo-deployer-git</p><p>完成后我们需要配置一下blog目录下的_config.yml文件</p><p>用编辑器打开<br>找到最后的type改成：</p><p>type: git</p><p>repo: <a href="https://github.com/13509791520zsq/13509791520zsq.github.io.git(就是你的仓库里面的地址)" target="_blank" rel="noopener">https://github.com/13509791520zsq/13509791520zsq.github.io.git(就是你的仓库里面的地址)</a></p><p>branch: master</p><p>3.配置好后，我们就需要把本地的文件部署到git上去了</p><p>hexo deploy（或者hexo d）</p><p>中间会需要输入用户名和密码</p><p>之后刷新仓库就会发现仓库里面有了我们本地的文件了</p><p>访问方式就是  “用户名.github.io” 在浏览器上直接打开就可以访问了。</p><p>#第五步 更换主题</p><p>1.推荐一个网址：<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></p><p>打开后点击clone and download</p><p>会有一个地址复制下来</p><p>2.输入命令： git clone <a href="https://github.com/litten/hexo-theme-yilia.git" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia.git</a> themes/yilia</p><p>开始克隆（下载）</p><p>3.下载完成后可以在文件themes下看见yilia</p><p>然后我们就可以配置了</p><p>打开_config.yml文件</p><p>找到theme把后面的landscape改成yilia就好了</p><p>4.接下来依次</p><p>hexo clean</p><p>hexo g</p><p>hexo s（本地的就已经改了）</p><p>hexo d (部署到github上会有延迟等会就可以)</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>hexo</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
