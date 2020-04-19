@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="琦哥">
   <meta name="keywords" content="">
-  <title>vue.router - 琦哥の博客</title>
+  <title>nodemon 运行错误解决 - 琦哥の博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
@@ -130,7 +130,7 @@
               
                 <p class="mt-3 post-meta">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                  星期五, 三月 20日 2020, 12:36 下午
+                  星期六, 十月 19日 2019, 9:41 晚上
                 </p>
               
 
@@ -139,7 +139,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    780 字
+                    70 字
                   </span>
                 
 
@@ -149,7 +149,7 @@
                       <i class="far fa-clock"></i>
                     
                     
-                    11
+                    1
                      分钟
                   </span>
                 
@@ -178,119 +178,18 @@
           <div class="post-content mx-auto" id="post">
             
             <div class="markdown-body">
-              <h1 id="vue-component"><a href="#vue-component" class="headerlink" title="vue.component"></a>vue.component</h1><h2 id="Vue-js-组件"><a href="#Vue-js-组件" class="headerlink" title="Vue.js 组件"></a>Vue.js 组件</h2><p>组件（Component）是 Vue.js 最强大的功能之一。</p>
-<p>组件可以扩展 HTML 元素，封装可重用的代码。</p>
-<p>组件系统让我们可以用独立可复用的小组件来构建大型应用，几乎任意类型的应用的界面都可以抽象为一个组件树：</p>
-<p>注册一个全局组件语法格式如下：</p>
-<p><code>Vue.component(tagName, options)</code></p>
-<p>tagName 为组件名，options 为配置选项。注册后，我们可以使用以下方式来调用组件：</p>
-<p><code>&lt;tagName&gt;&lt;/tagName&gt;</code></p>
-<h3 id="全局组件"><a href="#全局组件" class="headerlink" title="全局组件"></a>全局组件</h3><p>所有实例都能用全局组件。</p>
-<pre><code>全局组件实例
-注册一个简单的全局组件 runoob，并使用它：
+              <h3 id="nodemon运行-提示错误：无法加载文件-C-Users-gxf-AppData-Roaming-npm-nodemon-ps1，因为在此系统上禁止运行脚本。"><a href="#nodemon运行-提示错误：无法加载文件-C-Users-gxf-AppData-Roaming-npm-nodemon-ps1，因为在此系统上禁止运行脚本。" class="headerlink" title="nodemon运行 提示错误：无法加载文件 C:\Users\gxf\AppData\Roaming\npm\nodemon.ps1，因为在此系统上禁止运行脚本。"></a>nodemon运行 提示错误：无法加载文件 C:\Users\gxf\AppData\Roaming\npm\nodemon.ps1，因为在此系统上禁止运行脚本。</h3><blockquote>
+<p> 这是你笔记本禁止运行脚本，解决办法：</p>
+</blockquote>
+<ol>
+<li><p>管理员身份打开powerShell</p>
+</li>
+<li><p>输入set-ExecutionPolicy RemoteSigned </p>
+</li>
+<li><p>nodemon server.js 可以用了</p>
+</li>
+</ol>
 
-&lt;div id=&quot;app&quot;&gt;
-    &lt;runoob&gt;&lt;/runoob&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-// 注册
-Vue.component(&#39;runoob&#39;, {
-  template: &#39;&lt;h1&gt;自定义组件!&lt;/h1&gt;&#39;
-})
-// 创建根实例
-new Vue({
-  el: &#39;#app&#39;
-})
-&lt;/script&gt;</code></pre><h3 id="局部组件"><a href="#局部组件" class="headerlink" title="局部组件"></a>局部组件</h3><p>我们也可以在实例选项中注册局部组件，这样组件只能在这个实例中使用：</p>
-<pre><code>局部组件实例
-注册一个简单的局部组件 runoob，并使用它：
-
-&lt;div id=&quot;app&quot;&gt;
-    &lt;runoob&gt;&lt;/runoob&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-var Child = {
-  template: &#39;&lt;h1&gt;自定义组件!&lt;/h1&gt;&#39;
-}
-
-// 创建根实例
-new Vue({
-  el: &#39;#app&#39;,
-  components: {
-    // &lt;runoob&gt; 将只在父模板可用
-    &#39;runoob&#39;: Child
-  }
-})
-&lt;/script&gt;</code></pre><h3 id="Prop"><a href="#Prop" class="headerlink" title="Prop"></a>Prop</h3><p>prop 是子组件用来接受父组件传递过来的数据的一个自定义属性。</p>
-<p>父组件的数据需要通过 props 把数据传给子组件，子组件需要显式地用 props 选项声明 “prop”：</p>
-<pre><code>Prop 实例
-&lt;div id=&quot;app&quot;&gt;
-    &lt;child message=&quot;hello!&quot;&gt;&lt;/child&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-// 注册
-Vue.component(&#39;child&#39;, {
-  // 声明 props
-  props: [&#39;message&#39;],
-  // 同样也可以在 vm 实例中像 &quot;this.message&quot; 这样使用
-  template: &#39;&lt;span&gt;{{ message }}&lt;/span&gt;&#39;
-})
-// 创建根实例
-new Vue({
-  el: &#39;#app&#39;
-})
-&lt;/script&gt;</code></pre><h3 id="动态-Prop"><a href="#动态-Prop" class="headerlink" title="动态 Prop"></a>动态 Prop</h3><p>类似于用 v-bind 绑定 HTML 特性到一个表达式，也可以用 v-bind 动态绑定 props 的值到父组件的数据中。每当父组件的数据变化时，该变化也会传导给子组件：</p>
-<pre><code>Prop 实例
-&lt;div id=&quot;app&quot;&gt;
-    &lt;div&gt;
-      &lt;input v-model=&quot;parentMsg&quot;&gt;
-      &lt;br&gt;
-      &lt;child v-bind:message=&quot;parentMsg&quot;&gt;&lt;/child&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-// 注册
-Vue.component(&#39;child&#39;, {
-  // 声明 props
-  props: [&#39;message&#39;],
-  // 同样也可以在 vm 实例中像 &quot;this.message&quot; 这样使用
-  template: &#39;&lt;span&gt;{{ message }}&lt;/span&gt;&#39;
-})
-// 创建根实例
-new Vue({
-  el: &#39;#app&#39;,
-  data: {
-    parentMsg: &#39;父组件内容&#39;
-  }
-})
-&lt;/script&gt;</code></pre><p>以下实例中使用 v-bind 指令将 todo 传到每一个重复的组件中：</p>
-<pre><code>Prop 实例
-&lt;div id=&quot;app&quot;&gt;
-    &lt;ol&gt;
-    &lt;todo-item v-for=&quot;item in sites&quot; v-bind:todo=&quot;item&quot;&gt;&lt;/todo-item&gt;
-      &lt;/ol&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-Vue.component(&#39;todo-item&#39;, {
-  props: [&#39;todo&#39;],
-  template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39;
-})
-new Vue({
-  el: &#39;#app&#39;,
-  data: {
-    sites: [
-      { text: &#39;Runoob&#39; },
-      { text: &#39;Google&#39; },
-      { text: &#39;Taobao&#39; }
-    ]
-  }
-})
-&lt;/script&gt;</code></pre>
             </div>
             <hr>
             <div>
@@ -299,7 +198,7 @@ new Vue({
                   <span>
                 <i class="iconfont icon-inbox"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                      <a class="hover-with-bg" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
                       &nbsp;
                     
                   </span>&nbsp;&nbsp;
@@ -308,7 +207,7 @@ new Vue({
                   <span>
                 <i class="iconfont icon-tag"></i>
                     
-                      <a class="hover-with-bg" href="/tags/vue/">vue</a>
+                      <a class="hover-with-bg" href="/tags/hexo/">hexo</a>
                     
                   </span>
                 
@@ -321,21 +220,15 @@ new Vue({
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/04/09/hello-world/">
+                      <a href="/2019/10/19/filter/">
                         <i class="fa fa-chevron-left"></i>
-                        <span class="hidden-mobile">Hello World</span>
+                        <span class="hidden-mobile">Filter:过滤器</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </div>
                   <div class="post-next col-6">
                     
-                    
-                      <a href="/2020/02/29/markdown%E8%AF%AD%E6%B3%95/">
-                        <span class="hidden-mobile">学习markdown的语法</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="fa fa-chevron-right"></i>
-                      </a>
                     
                   </div>
                 </div>
@@ -493,7 +386,7 @@ new Vue({
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "vue.router&nbsp;",
+        "nodemon 运行错误解决&nbsp;",
       ],
       cursorChar: "welcome",
       typeSpeed: 60,

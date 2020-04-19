@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="琦哥">
   <meta name="keywords" content="">
-  <title>vue.router - 琦哥の博客</title>
+  <title>学习markdown的语法 - 琦哥の博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
@@ -130,7 +130,7 @@
               
                 <p class="mt-3 post-meta">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                  星期五, 三月 20日 2020, 12:36 下午
+                  星期六, 二月 29日 2020, 9:41 晚上
                 </p>
               
 
@@ -139,7 +139,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    780 字
+                    723 字
                   </span>
                 
 
@@ -149,7 +149,7 @@
                       <i class="far fa-clock"></i>
                     
                     
-                    11
+                    7
                      分钟
                   </span>
                 
@@ -178,137 +178,141 @@
           <div class="post-content mx-auto" id="post">
             
             <div class="markdown-body">
-              <h1 id="vue-component"><a href="#vue-component" class="headerlink" title="vue.component"></a>vue.component</h1><h2 id="Vue-js-组件"><a href="#Vue-js-组件" class="headerlink" title="Vue.js 组件"></a>Vue.js 组件</h2><p>组件（Component）是 Vue.js 最强大的功能之一。</p>
-<p>组件可以扩展 HTML 元素，封装可重用的代码。</p>
-<p>组件系统让我们可以用独立可复用的小组件来构建大型应用，几乎任意类型的应用的界面都可以抽象为一个组件树：</p>
-<p>注册一个全局组件语法格式如下：</p>
-<p><code>Vue.component(tagName, options)</code></p>
-<p>tagName 为组件名，options 为配置选项。注册后，我们可以使用以下方式来调用组件：</p>
-<p><code>&lt;tagName&gt;&lt;/tagName&gt;</code></p>
-<h3 id="全局组件"><a href="#全局组件" class="headerlink" title="全局组件"></a>全局组件</h3><p>所有实例都能用全局组件。</p>
-<pre><code>全局组件实例
-注册一个简单的全局组件 runoob，并使用它：
+              <h1 id="markdown语法"><a href="#markdown语法" class="headerlink" title="markdown语法"></a>markdown语法</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>在想要设置为标题的文字前面加#来表示<br>一个#是一级标题，二个#是二级标题，以此类推。支持六级标题。</p>
+<p>注：标准语法一般在#后跟个空格再写文字，貌似简书不加空格也行。</p>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><h3 id="加粗"><a href="#加粗" class="headerlink" title="加粗"></a>加粗</h3><p>要加粗的文字左右分别用两个*号包起来</p>
+<h3 id="斜体"><a href="#斜体" class="headerlink" title="斜体"></a>斜体</h3><p>要倾斜的文字左右分别用一个*号包起来</p>
+<h3 id="斜体加粗"><a href="#斜体加粗" class="headerlink" title="斜体加粗"></a>斜体加粗</h3><p>要倾斜和加粗的文字左右分别用三个*号包起来</p>
+<h3 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h3><p>要加删除线的文字左右分别用两个~~号包起来</p>
+<a id="more"></a>
 
-&lt;div id=&quot;app&quot;&gt;
-    &lt;runoob&gt;&lt;/runoob&gt;
-&lt;/div&gt;
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>在引用的文字前加&gt;即可。引用也可以嵌套，如加两个&gt;&gt;三个&gt;&gt;&gt;<br>n个…</p>
+<p>示例：</p>
+<blockquote>
+<p>这是引用的内容</p>
+<blockquote>
+<p>这是引用的内容</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>这是引用的内容</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><p>三个或者三个以上的 - 或者 * 都可以。</p>
+<hr>
+<hr>
+<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p>语法：</p>
+<p><strong>![图片alt](图片地址 ‘’图片title’’)</strong></p>
+<p><strong>图片alt就是显示在图片下面的文字，相当于对图片内容的解释。</strong><br><strong>图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加</strong></p>
+<h2 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h2><p>**语法：</p>
+<p>**<a href="超链接地址" title="超链接title">超链接名</a><br>**title可加可不加</p>
+<p>注：Markdown本身语法不支持链接在新页面中打开，貌似简书做了处理，<br>是可以的。别的平台可能就不行了，如果想要在新页面中打开的话可以<br>用html语言的a标签代替。</p>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><p>语法：<br>无序列表用 - + * 任何一种都可以</p>
+<ul>
+<li>列表内容</li>
+</ul>
+<ul>
+<li>列表内容</li>
+</ul>
+<ul>
+<li>列表内容</li>
+</ul>
+<p><strong>注意：- + * 跟内容之间都要有一个空格</strong></p>
+<h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><p>语法：<br>数字加点</p>
+<ol>
+<li>列表内容</li>
+<li>列表内容</li>
+<li>列表内容</li>
+</ol>
+<p><strong>注意：序号跟内容之间要有空格</strong></p>
+<h3 id="列表嵌套"><a href="#列表嵌套" class="headerlink" title="列表嵌套"></a>列表嵌套</h3><p>上一级和下一级之间敲三个空格即可</p>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><p>语法：</p>
+<table>
+<thead>
+<tr>
+<th>表头</th>
+<th align="center">表头</th>
+<th align="right">表头</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内容</td>
+<td align="center">内容</td>
+<td align="right">内容</td>
+</tr>
+<tr>
+<td>内容</td>
+<td align="center">内容</td>
+<td align="right">内容</td>
+</tr>
+</tbody></table>
+<p>第二行分割表头和内容。</p>
+<ul>
+<li>有一个就行，为了对齐，多加了几个<br>文字默认居左</li>
+<li>两边加：表示文字居中</li>
+<li>右边加：表示文字居右<br>注：原生的语法两边都要用 | 包起来。此处省略</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>语法：<br>单行代码：代码之间分别用一个反引号(英文输入法~键不按shift)包起来</p>
+<pre><code>`代码内容`</code></pre><p>代码块：代码之间分别用三个反引号包起来，且两边的反引号单独占一行</p>
+<p>(<code>)
+  代码...
+  代码...
+  代码...
+(</code>)</p>
+<p>注：为了防止转译，前后三个反引号处加了小括号，实际是没有的。<br>这里只是用来演示，实际中去掉两边小括号即可。</p>
+<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><pre><code class="flow">st=&gt;start: 开始
+op=&gt;operation: My Operation
+cond=&gt;condition: Yes or No?
+e=&gt;end
+st-&gt;op-&gt;cond
+cond(yes)-&gt;e
+cond(no)-&gt;op
+&amp;```
 
-&lt;script&gt;
-// 注册
-Vue.component(&#39;runoob&#39;, {
-  template: &#39;&lt;h1&gt;自定义组件!&lt;/h1&gt;&#39;
-})
-// 创建根实例
-new Vue({
-  el: &#39;#app&#39;
-})
-&lt;/script&gt;</code></pre><h3 id="局部组件"><a href="#局部组件" class="headerlink" title="局部组件"></a>局部组件</h3><p>我们也可以在实例选项中注册局部组件，这样组件只能在这个实例中使用：</p>
-<pre><code>局部组件实例
-注册一个简单的局部组件 runoob，并使用它：
 
-&lt;div id=&quot;app&quot;&gt;
-    &lt;runoob&gt;&lt;/runoob&gt;
-&lt;/div&gt;
 
-&lt;script&gt;
-var Child = {
-  template: &#39;&lt;h1&gt;自定义组件!&lt;/h1&gt;&#39;
-}
 
-// 创建根实例
-new Vue({
-  el: &#39;#app&#39;,
-  components: {
-    // &lt;runoob&gt; 将只在父模板可用
-    &#39;runoob&#39;: Child
-  }
-})
-&lt;/script&gt;</code></pre><h3 id="Prop"><a href="#Prop" class="headerlink" title="Prop"></a>Prop</h3><p>prop 是子组件用来接受父组件传递过来的数据的一个自定义属性。</p>
-<p>父组件的数据需要通过 props 把数据传给子组件，子组件需要显式地用 props 选项声明 “prop”：</p>
-<pre><code>Prop 实例
-&lt;div id=&quot;app&quot;&gt;
-    &lt;child message=&quot;hello!&quot;&gt;&lt;/child&gt;
-&lt;/div&gt;
 
-&lt;script&gt;
-// 注册
-Vue.component(&#39;child&#39;, {
-  // 声明 props
-  props: [&#39;message&#39;],
-  // 同样也可以在 vm 实例中像 &quot;this.message&quot; 这样使用
-  template: &#39;&lt;span&gt;{{ message }}&lt;/span&gt;&#39;
-})
-// 创建根实例
-new Vue({
-  el: &#39;#app&#39;
-})
-&lt;/script&gt;</code></pre><h3 id="动态-Prop"><a href="#动态-Prop" class="headerlink" title="动态 Prop"></a>动态 Prop</h3><p>类似于用 v-bind 绑定 HTML 特性到一个表达式，也可以用 v-bind 动态绑定 props 的值到父组件的数据中。每当父组件的数据变化时，该变化也会传导给子组件：</p>
-<pre><code>Prop 实例
-&lt;div id=&quot;app&quot;&gt;
-    &lt;div&gt;
-      &lt;input v-model=&quot;parentMsg&quot;&gt;
-      &lt;br&gt;
-      &lt;child v-bind:message=&quot;parentMsg&quot;&gt;&lt;/child&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
 
-&lt;script&gt;
-// 注册
-Vue.component(&#39;child&#39;, {
-  // 声明 props
-  props: [&#39;message&#39;],
-  // 同样也可以在 vm 实例中像 &quot;this.message&quot; 这样使用
-  template: &#39;&lt;span&gt;{{ message }}&lt;/span&gt;&#39;
-})
-// 创建根实例
-new Vue({
-  el: &#39;#app&#39;,
-  data: {
-    parentMsg: &#39;父组件内容&#39;
-  }
-})
-&lt;/script&gt;</code></pre><p>以下实例中使用 v-bind 指令将 todo 传到每一个重复的组件中：</p>
-<pre><code>Prop 实例
-&lt;div id=&quot;app&quot;&gt;
-    &lt;ol&gt;
-    &lt;todo-item v-for=&quot;item in sites&quot; v-bind:todo=&quot;item&quot;&gt;&lt;/todo-item&gt;
-      &lt;/ol&gt;
-&lt;/div&gt;
 
-&lt;script&gt;
-Vue.component(&#39;todo-item&#39;, {
-  props: [&#39;todo&#39;],
-  template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39;
-})
-new Vue({
-  el: &#39;#app&#39;,
-  data: {
-    sites: [
-      { text: &#39;Runoob&#39; },
-      { text: &#39;Google&#39; },
-      { text: &#39;Taobao&#39; }
-    ]
-  }
-})
-&lt;/script&gt;</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</code></pre>
+
             </div>
             <hr>
             <div>
               <p>
                 
-                  <span>
-                <i class="iconfont icon-inbox"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
-                      &nbsp;
-                    
-                  </span>&nbsp;&nbsp;
-                
                 
                   <span>
                 <i class="iconfont icon-tag"></i>
                     
-                      <a class="hover-with-bg" href="/tags/vue/">vue</a>
+                      <a class="hover-with-bg" href="/tags/markdown%E8%AF%AD%E6%B3%95/">markdown语法</a>
                     
                   </span>
                 
@@ -321,9 +325,9 @@ new Vue({
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/04/09/hello-world/">
+                      <a href="/2020/03/20/vue.component/">
                         <i class="fa fa-chevron-left"></i>
-                        <span class="hidden-mobile">Hello World</span>
+                        <span class="hidden-mobile">vue.router</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -331,8 +335,8 @@ new Vue({
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/02/29/markdown%E8%AF%AD%E6%B3%95/">
-                        <span class="hidden-mobile">学习markdown的语法</span>
+                      <a href="/2020/02/29/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AD%A6%E4%B9%A0/">
+                        <span class="hidden-mobile">express中间件学习</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="fa fa-chevron-right"></i>
                       </a>
@@ -493,7 +497,7 @@ new Vue({
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "vue.router&nbsp;",
+        "学习markdown的语法&nbsp;",
       ],
       cursorChar: "welcome",
       typeSpeed: 60,

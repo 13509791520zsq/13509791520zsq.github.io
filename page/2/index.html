@@ -155,8 +155,151 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/02/29/nginx%E9%9A%8F%E7%AC%94/">
+      <a href="/2020/02/29/express%20cookie%E4%BD%BF%E7%94%A8/">
+        <p class="h4 index-header">express cookie使用</p>
+      </a>
+
+      <a href="/2020/02/29/express%20cookie%E4%BD%BF%E7%94%A8/" class="index-excerpt-wrap">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">##1.安装
+npm install cookie-parser --save
+##2.引入
+const cookieParser=require(&quot;cookie-parser&quot;)
+##3.设置中间件
+app.use(cookieParser())
+##4.设置cookie
+res.cookie(&quot;name&quot;,&#39;zhangsan&#39;,{maxAge: 900000, httpOnly: true});
+参数一：cookie名字
+参数二：cookie值
+参数三： {maxage：最大存活时间，httponly：true通过程序（JS 脚本、a</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-29&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/express-cookie/">express cookie</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/02/29/vue.js/">
+        <p class="h4 index-header">vue.js安装</p>
+      </a>
+
+      <a href="/2020/02/29/vue.js/" class="index-excerpt-wrap">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">vue.js安装
+独立版本
+
+使用cdn方法
+以下推荐国外比较稳定的两个CDN，国内还没发现哪一家比较好，目前还是建议下载到本地。
+
+静态文件CDN（国内）：https : //cdn.staticfile.org/vue/2.2.2/vue.min.js
+unpkg：https : //unpkg.com/vue/dist/vue.js，保持和npm发布的最新版本一致。
+cdnjs：https : //cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js
+
+
+npm安装
+由于npm安装速度慢，本教程使用了淘宝的补充及其命令cnpm，安装使用介</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-29&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/vue/">vue</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/02/29/express%E5%BC%80%E6%94%BE%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6/">
         <p class="h4 index-header">express开放静态资源文件</p>
+      </a>
+
+      <a href="/2020/02/29/express%E5%BC%80%E6%94%BE%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6/" class="index-excerpt-wrap">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">创建public文件夹，将静态资源全部放入在server.js中
+app.use(&quot;/static/&quot;,express.static(path.join(__dirname, &#39;static&#39;)))
+第一个参数是访问时要加的路径，
+第二个参数是要开放的文件夹路径
+  path是一个核心模块
+  __dirname是当前文件所在目录的绝对目录
+join是拼接目录的方法
+</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-29&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/express/">express</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/02/29/nginx%E9%9A%8F%E7%AC%94/">
+        <p class="h4 index-header">nginx 安装</p>
       </a>
 
       <a href="/2020/02/29/nginx%E9%9A%8F%E7%AC%94/" class="index-excerpt-wrap">
@@ -189,6 +332,11 @@
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-29&nbsp;&nbsp;
         
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>&nbsp;
+          &nbsp;
         
         
           <i class="iconfont icon-tag"></i>
@@ -233,6 +381,41 @@
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/git/">git</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2019/10/19/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
+        <p class="h4 index-header">个人博客的搭建过程</p>
+      </a>
+
+      <a href="/2019/10/19/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/" class="index-excerpt-wrap">
+        
+        
+          
+          
+        
+        <div class="index-excerpt" style="max-height: none;">
+          <div class="index-text mb-1">##先序
+教程针对hexo框架搭建，有本人踩过的坑，我是在windows上做的，大家参考。...</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-19&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/hexo/">hexo</a>&nbsp;
           
         
       </div>
@@ -300,19 +483,28 @@ web.xml配置
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2019/10/19/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
-        <p class="h4 index-header">个人博客的搭建过程</p>
+      <a href="/2019/10/19/nodemon%E8%BF%90%E8%A1%8C%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+        <p class="h4 index-header">nodemon 运行错误解决</p>
       </a>
 
-      <a href="/2019/10/19/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/" class="index-excerpt-wrap">
+      <a href="/2019/10/19/nodemon%E8%BF%90%E8%A1%8C%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="index-excerpt-wrap">
         
         
           
-          
         
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">##先序
-教程针对hexo框架搭建，有本人踩过的坑，我是在windows上做的，大家参考。...</div>
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">nodemon运行 提示错误：无法加载文件 C:\Users\gxf\AppData\Roaming\npm\nodemon.ps1，因为在此系统上禁止运行脚本。
+ 这是你笔记本禁止运行脚本，解决办法：
+
+
+管理员身份打开powerShell
+
+输入set-ExecutionPolicy RemoteSigned 
+
+nodemon server.js 可以用了
+
+
+</div>
         </div>
       </a>
 
@@ -320,6 +512,11 @@ web.xml配置
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-19&nbsp;&nbsp;
         
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>&nbsp;
+          &nbsp;
         
         
           <i class="iconfont icon-tag"></i>
